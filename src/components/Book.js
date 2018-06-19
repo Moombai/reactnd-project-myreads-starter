@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Book = (props) => {
-  console.log(props);
   return (
     <li>
       <div className="book">
