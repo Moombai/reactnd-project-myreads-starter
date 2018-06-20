@@ -1,5 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
+import Header from './components/Header.js'
 import Bookshelf from './components/Bookshelf.js'
 import './App.css'
 
@@ -51,9 +52,7 @@ class BooksApp extends React.Component {
           </div>
         ) : (
           <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
+            <Header />
             <div className="list-books-content">
               <Bookshelf books={this.state.books} title="Currently Reading" shelf="currentlyReading" />
               <Bookshelf books={this.state.books} title="Want to Read" shelf="wantToRead" />
