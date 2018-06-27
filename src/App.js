@@ -14,10 +14,25 @@ class BooksApp extends React.Component {
    */
   constructor() {
     super();
+    this.handleBookUpdate = this.handleBookUpdate.bind(this);
     this.state = {
       showSearchPage: false,
       books: []
     }
+  }
+
+  handleBookUpdate(event, id) {
+    let booksCopy = [...this.state.books];
+    let selectedShelf = event.target.value;
+    // check through all the books
+    let updatedBooks = booksCopy.map( book => {
+      if (book.id === id) {
+        // if a book id matches, update that book before returning it
+        book.shelf = selectedShelf;
+      }
+      return book;
+    });
+    this.setState({books: updatedBooks});
   }
 
   componentDidMount() {
@@ -54,9 +69,9 @@ class BooksApp extends React.Component {
           <div className="list-books">
             <Header />
             <div className="list-books-content">
-              <Bookshelf books={this.state.books} title="Currently Reading" shelf="currentlyReading" />
-              <Bookshelf books={this.state.books} title="Want to Read" shelf="wantToRead" />
-              <Bookshelf books={this.state.books} title="Read" shelf="read" />
+              <Bookshelf books={this.state.books} handleBookUpdate={this.handleBookUpdate} title="Currently Reading" shelf="currentlyReading" />
+                <Bookshelf books={this.state.books} handleBookUpdate={this.handleBookUpdate} title="Want to Read" shelf="wantToRead" />
+                <Bookshelf books={this.state.books} handleBookUpdate={this.handleBookUpdate} title="Read" shelf="read" />
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
@@ -68,4 +83,5 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default BooksApp;
+

@@ -16,6 +16,8 @@ const Bookshelf = (props) => {
             return <Book url={book.imageLinks.smallThumbnail}
                          title={book.title}
                          authors={book.authors}
+                         bookId={book.id}
+                         handleBookUpdate={props.handleBookUpdate}
                          key={index} />
           })}
         </ol>
