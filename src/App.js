@@ -33,6 +33,12 @@ class BooksApp extends React.Component {
       return book;
     });
     this.setState({books: updatedBooks});
+    // update the server
+    BooksAPI.update({ id: id }, selectedShelf).then(function(response){
+      console.log(response);
+    }).catch(function(err) {
+      console.log("error updating book", err);
+    })
   }
 
   componentDidMount() {
