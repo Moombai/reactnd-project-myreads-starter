@@ -50,7 +50,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route path="/" render={() => (
+        <Route exact path="/" render={() => (
           <div className="list-books">
             <Header />
             <div className="list-books-content">
