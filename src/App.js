@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Header from './components/Header.js'
 import Bookshelf from './components/Bookshelf.js'
+import Book from './components/Book.js'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -16,8 +17,11 @@ class BooksApp extends React.Component {
   constructor() {
     super();
     this.handleBookUpdate = this.handleBookUpdate.bind(this);
+    this.handleSearch =  this.handleSearch.bind(this);
     this.state = {
-      books: []
+      books: [],
+      search: '',
+      searchResult: []
     }
   }
 
@@ -41,6 +45,14 @@ class BooksApp extends React.Component {
     })
   }
 
+  handleSearch(event) {
+    this.setState({search: event.target.value});
+    BooksAPI.search(this.state.search).then(books => {
+      this.setState({searchResult: books})
+      console.log(books);
+    });
+  }
+
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books: books })
@@ -48,6 +60,8 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const results = this.state.searchResult || [];
+    console.log("current value of results:", results);
     return (
       <div className="app">
         <Route exact path="/" render={() => (
@@ -77,12 +91,23 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author" />
-
+                <input type="text" placeholder="Search by title or author"
+                  value={this.state.search}
+                  onChange={this.handleSearch}
+                />
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                {results.map((book, index) => {
+                  return <Book url={book.imageLinks.smallThumbnail}
+                    title={book.title}
+                    authors={book.authors}
+                    bookId={book.id}
+                    handleBookUpdate={this.handleBookUpdate}
+                    key={index} />
+                })}
+              </ol>
             </div>
           </div>
         )} />
