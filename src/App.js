@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Header from './components/Header.js'
 import Bookshelf from './components/Bookshelf.js'
-import Book from './components/Book.js'
+import BookResults from './components/BookResults.js'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -47,10 +47,6 @@ class BooksApp extends React.Component {
 
   handleSearch(event) {
     this.setState({search: event.target.value});
-    BooksAPI.search(this.state.search).then(books => {
-      this.setState({searchResult: books})
-      console.log(books);
-    });
   }
 
   componentDidMount() {
@@ -60,8 +56,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const results = this.state.searchResult || [];
-    console.log("current value of results:", results);
     return (
       <div className="app">
         <Route exact path="/" render={() => (
@@ -98,16 +92,7 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid">
-                {results.map((book, index) => {
-                  return <Book url={book.imageLinks.smallThumbnail}
-                    title={book.title}
-                    authors={book.authors}
-                    bookId={book.id}
-                    handleBookUpdate={this.handleBookUpdate}
-                    key={index} />
-                })}
-              </ol>
+              <BookResults search={this.state.search}/>
             </div>
           </div>
         )} />
