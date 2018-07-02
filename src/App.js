@@ -92,7 +92,7 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <BookResults search={this.state.search}/>
+              <BookResults search={this.state.search} handleBookUpdate={this.handleBookUpdate}/>
             </div>
           </div>
         )} />
@@ -102,4 +102,7 @@ class BooksApp extends React.Component {
 }
 
 export default BooksApp;
+
+//TODO: Store the bookshelf state in App.js
+// This way we can share this state between books in the homepage and the search page
 

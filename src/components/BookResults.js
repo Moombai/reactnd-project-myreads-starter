@@ -51,7 +51,7 @@ class BookResults extends React.Component {
               title={book.title}
               authors={book.authors}
               bookId={book.id}
-              handleBookUpdate={this.handleBookUpdate}
+              handleBookUpdate={this.props.handleBookUpdate}
               key={index} />
           })
         }
