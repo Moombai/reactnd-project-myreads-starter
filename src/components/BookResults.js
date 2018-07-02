@@ -8,6 +8,15 @@ class BookResults extends React.Component {
     this.state = {searchResults: []};
   }
 
+  static undefinedPropertyCheck(property) {
+    if (typeof property.imageLinks === "undefined") {
+      property.imageLinks = "";
+    }
+    if (typeof property.authors === "undefined") {
+      property.imageLinks = "";
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.search !== prevProps.search) {
       // run code if the search props has a value
@@ -37,6 +46,7 @@ class BookResults extends React.Component {
       <ol className="books-grid">
         {
           results.map((book, index) => {
+            BookResults.undefinedPropertyCheck(book);
             return <Book url={book.imageLinks.smallThumbnail}
               title={book.title}
               authors={book.authors}
