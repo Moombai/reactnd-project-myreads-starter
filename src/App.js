@@ -119,7 +119,7 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <BookResults search={this.state.search} handleSearchUpdate={this.handleSearchUpdate}/>
+              <BookResults search={this.state.search} storedBooks={this.state.books} handleSearchUpdate={this.handleSearchUpdate}/>
             </div>
           </div>
         )} />

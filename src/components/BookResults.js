@@ -47,14 +47,31 @@ class BookResults extends React.Component {
         {
           results.map((book, index) => {
             BookResults.undefinedPropertyCheck(book);
-            return <Book
-              book={book}
-              url={book.imageLinks.smallThumbnail}
-              title={book.title}
-              authors={book.authors}
-              bookId={book.id}
-              handleBookUpdate={this.props.handleSearchUpdate}
-              key={index} />
+
+            const archived = this.props.storedBooks.find(stored =>{
+              return stored.id === book.id;
+            });
+
+            if (archived) {
+              return <Book
+                book={book}
+                shelf={archived.shelf}
+                url={book.imageLinks.smallThumbnail}
+                title={book.title}
+                authors={book.authors}
+                bookId={book.id}
+                handleBookUpdate={this.props.handleSearchUpdate}
+                key={index} />
+            } else {
+              return <Book
+                book={book}
+                url={book.imageLinks.smallThumbnail}
+                title={book.title}
+                authors={book.authors}
+                bookId={book.id}
+                handleBookUpdate={this.props.handleSearchUpdate}
+                key={index} />
+            }
           })
         }
       </ol>
@@ -63,7 +80,3 @@ class BookResults extends React.Component {
 }
 
 export default BookResults;
-
-
-
-// TODO: tidy up searchResults code
