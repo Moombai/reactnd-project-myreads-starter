@@ -34,7 +34,6 @@ class BookResults extends React.Component {
           console.log("there was a search error", err);
         });
       } else {
-        console.log("search result is empty")
         this.setState({ searchResults: [] });
       }
     }
@@ -42,6 +41,7 @@ class BookResults extends React.Component {
 
   render() {
     const results = this.state.searchResults;
+    // iterate through search results and pass the shelf status as a prop if it's found
     return (
       <ol className="books-grid">
         {
