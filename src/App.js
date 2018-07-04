@@ -48,20 +48,28 @@ class BooksApp extends React.Component {
   }
 
   handleSearchUpdate(event, book) {
-    // I want to get the book from my search api and add it to my book state with the correct shelf
-
-    // make a copy of the book state
-    let booksCopy = [...this.state.books];
-    let selectedShelf = event.target.value;
-    book.shelf = selectedShelf;
-    console.log(book);
+    let updateFlag = true;
+    const bookFromSearch = book;
+    const bookStateCopy = [...this.state.books];
+    const selectedShelf = event.target.value;
     // add the shelf to the book based on the event
-    // check if this book is present in the book state
-    // if it's not then we need to add it
-    // update the book state with our new data
+    bookFromSearch.shelf = selectedShelf;
 
-    console.log("[handleSearchUpdate]","says hello!");
+    // if we find a book in state then we update it
+    const updatedBooks = bookStateCopy.map(function(book) {
+      if (book.id === bookFromSearch.id) {
+        book.shelf = selectedShelf;
+        updateFlag = false;
+      }
+      return book;
+    });
 
+    if (updateFlag) {
+      // if a book can't be found in state then we add it with the updated shelf
+      bookFromSearch.shelf = selectedShelf;
+      updatedBooks.push(bookFromSearch);
+    }
+    this.setState({ books: updatedBooks });
   }
 
   handleQuery(event) {
