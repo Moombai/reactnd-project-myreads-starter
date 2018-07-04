@@ -10,7 +10,7 @@ class Book extends React.Component {
 
   handleChange(event) {
     this.setState({value: event.target.value});
-    this.props.handleBookUpdate(event, this.props.bookId)
+    this.props.handleBookUpdate(event, this.props.book)
   }
 
   render () {

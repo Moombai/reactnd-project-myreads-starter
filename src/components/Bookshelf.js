@@ -13,7 +13,9 @@ const Bookshelf = (props) => {
           {books.filter(book => {
             return book.shelf === props.shelf;
           }).map( (book, index) => {
-            return <Book url={book.imageLinks.smallThumbnail}
+            return <Book
+                         book={book}
+                         url={book.imageLinks.smallThumbnail}
                          title={book.title}
                          authors={book.authors}
                          shelf={book.shelf}

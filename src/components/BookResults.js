@@ -17,6 +17,7 @@ class BookResults extends React.Component {
     }
   }
 
+  // this method manages the display of search results
   componentDidUpdate(prevProps) {
     if (this.props.search !== prevProps.search) {
       // run code if the search props has a value
@@ -40,18 +41,19 @@ class BookResults extends React.Component {
   }
 
   render() {
-    console.log("[BookResults]", this.state.searchResults);
     const results = this.state.searchResults;
     return (
       <ol className="books-grid">
         {
           results.map((book, index) => {
             BookResults.undefinedPropertyCheck(book);
-            return <Book url={book.imageLinks.smallThumbnail}
+            return <Book
+              book={book}
+              url={book.imageLinks.smallThumbnail}
               title={book.title}
               authors={book.authors}
               bookId={book.id}
-              handleBookUpdate={this.props.handleBookUpdate}
+              handleBookUpdate={this.props.handleSearchUpdate}
               key={index} />
           })
         }

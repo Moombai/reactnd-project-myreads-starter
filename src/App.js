@@ -17,7 +17,8 @@ class BooksApp extends React.Component {
   constructor() {
     super();
     this.handleBookUpdate = this.handleBookUpdate.bind(this);
-    this.handleSearch =  this.handleSearch.bind(this);
+    this.handleSearchUpdate = this.handleSearchUpdate.bind(this);
+    this.handleQuery = this.handleQuery.bind(this);
     this.state = {
       books: [],
       search: '',
@@ -25,7 +26,8 @@ class BooksApp extends React.Component {
     }
   }
 
-  handleBookUpdate(event, id) {
+  handleBookUpdate(event, book) {
+    let id = book.id;
     let booksCopy = [...this.state.books];
     let selectedShelf = event.target.value;
     // check through all the books
@@ -45,7 +47,24 @@ class BooksApp extends React.Component {
     })
   }
 
-  handleSearch(event) {
+  handleSearchUpdate(event, book) {
+    // I want to get the book from my search api and add it to my book state with the correct shelf
+
+    // make a copy of the book state
+    let booksCopy = [...this.state.books];
+    let selectedShelf = event.target.value;
+    book.shelf = selectedShelf;
+    console.log(book);
+    // add the shelf to the book based on the event
+    // check if this book is present in the book state
+    // if it's not then we need to add it
+    // update the book state with our new data
+
+    console.log("[handleSearchUpdate]","says hello!");
+
+  }
+
+  handleQuery(event) {
     this.setState({search: event.target.value});
   }
 
@@ -87,12 +106,12 @@ class BooksApp extends React.Component {
                 */}
                 <input type="text" placeholder="Search by title or author"
                   value={this.state.search}
-                  onChange={this.handleSearch}
+                  onChange={this.handleQuery}
                 />
               </div>
             </div>
             <div className="search-books-results">
-              <BookResults search={this.state.search} handleBookUpdate={this.handleBookUpdate}/>
+              <BookResults search={this.state.search} handleSearchUpdate={this.handleSearchUpdate}/>
             </div>
           </div>
         )} />
@@ -102,7 +121,4 @@ class BooksApp extends React.Component {
 }
 
 export default BooksApp;
-
-//TODO: Store the bookshelf state in App.js
-// This way we can share this state between books in the homepage and the search page
 
