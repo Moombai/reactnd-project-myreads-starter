@@ -13,6 +13,7 @@ const Bookshelf = (props) => {
           {books.filter(book => {
             return book.shelf === props.shelf;
           }).map( (book, index) => {
+            Bookshelf.undefinedPropertyCheck(book);
             return <Book
                          book={book}
                          url={book.imageLinks.smallThumbnail}
@@ -27,6 +28,16 @@ const Bookshelf = (props) => {
       </div>
     </div>
   )
+}
+
+// Add check for undefined properties
+Bookshelf.undefinedPropertyCheck = function(property) {
+  if (typeof property.imageLinks === "undefined") {
+    property.imageLinks = "";
+  }
+  if (typeof property.authors === "undefined") {
+    property.imageLinks = "";
+  }
 }
 
 export default Bookshelf;
